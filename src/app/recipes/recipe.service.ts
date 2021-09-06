@@ -8,21 +8,26 @@ import { Recipe } from "./recipe.model";
 @Injectable()
 export class RecipeService{
   recipesChanged = new Subject<Recipe[]>();
+  private  recipes: Recipe[]
 
   // recipeSelected = new Subject<Recipe>();
- private  recipes: Recipe[] = [
-    new Recipe('A Test Recipe', 'This is simple a test', '../../../assets/image/pizza.jpg',[
-      new Ingredient('Meat', 10),
-      new Ingredient('Dough', 1)
-    ]),
-    new Recipe('Another Test Recipe', 'This is simple a test', '../../../assets/image/pizza.jpg',[
-      new Ingredient('Meat', 20),
-      new Ingredient('Meat', 10),
-    ])
-  ];
+//  private  recipes: Recipe[] = [
+//     new Recipe('A Test Recipe', 'This is simple a test', '../../../assets/image/pizza.jpg',[
+//       new Ingredient('Meat', 10),
+//       new Ingredient('Dough', 1)
+//     ]),
+//     new Recipe('Another Test Recipe', 'This is simple a test', '../../../assets/image/pizza.jpg',[
+//       new Ingredient('Meat', 20),
+//       new Ingredient('Meat', 10),
+//     ])
+//   ];
 
-  constructor(private slService:ShoppingListService){
 
+  constructor(private slService:ShoppingListService){}
+
+  setRecipes(recipes: Recipe[]){
+      this.recipes = recipes;
+      this.recipesChanged.next(this.recipes.slice());
   }
 
   getRecipes(){
@@ -50,4 +55,6 @@ export class RecipeService{
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
   }
+
+
 }
