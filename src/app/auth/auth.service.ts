@@ -1,9 +1,10 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, tap } from "rxjs/operators";
-import { Subject, throwError } from 'rxjs';
+import { BehaviorSubject,  throwError } from 'rxjs';
 import { FormControl } from "@angular/forms";
 import { User } from "./user.model";
+import { Router } from "@angular/router";
 
 export interface AuthResponseData {
   kind: string;
@@ -15,12 +16,15 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
+
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  user = new Subject<User>();
 
-  constructor(private http: HttpClient){}
+ user = new BehaviorSubject<User>(null);
+
+
+  constructor(private http: HttpClient, private router: Router){}
 
 
   signUp(email: string, password: string){
@@ -44,19 +48,30 @@ export class AuthService {
       returnSecureToken: true
     }
     ).pipe(catchError(this.handleError), tap(resData =>{
+      // console.log("this is the token ====> " + resData.idToken);
       this.handleAuthentication(resData.email, resData.localId,resData.idToken, +resData.expiresIn);
     }));
   }
 
-  private  handleAuthentication(email: string, userId: string, token: string, expiresIn: number){
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-    const user = new User(
-      email,
-      userId,
-      token,
-      expirationDate);
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+  }
 
-      this.user.next(user);
+  private handleAuthentication(
+    email: string,
+    userId: string,
+    token: string,
+    expiresIn: number
+  ) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    console.log("this is the token ====> " + token);
+    let token_arg = token;
+    const user = new User(email, userId, token_arg, expirationDate);
+    console.log('this is token arg  '  + token_arg )
+    this.user.next(user);
+    console.log("this tokey arg user" + user.token)
+
   }
 
   private handleError(errorRes: HttpErrorResponse){
