@@ -44,7 +44,7 @@ export class DataStorageService {
   }
 
 
-    // deleteRecipeFromBackEnd(){
-  //   this.http.delete('')
-  // }
+    deleteRecipeFromBackEnd(index: number){
+    return this.http.delete('https://angular-recipebook-app-cb8e0-default-rtdb.firebaseio.com/recipes.json/'+ index)
+  }
 }
