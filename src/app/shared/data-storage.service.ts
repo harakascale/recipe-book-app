@@ -24,29 +24,6 @@ export class DataStorageService {
     })
   }
 
-  // fetchRecipes(){
-  //   debugger
-  //  return this.authService.user.pipe(take(1), exhaustMap(user => {
-  //     return this.http.get<Recipe[]>(
-  //       'https://angular-recipebook-app-cb8e0-default-rtdb.firebaseio.com/recipes.json',
-
-  //       {
-  //         params: new HttpParams().set('auth', user.token),
-  //       }
-  //       )
-  //   }),
-  //   map(recipes => {
-  //     return recipes.map(recipe =>{
-  //       return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients: []}
-  //     });
-  //   }),
-  //   tap(recipes => {
-  //     this.recipeService.setRecipes(recipes);
-  //   })
-  //   );
-
-  // }
-
   fetchRecipes() {
         return this.http.get<Recipe[]>(
           'https://angular-recipebook-app-cb8e0-default-rtdb.firebaseio.com/recipes.json',
@@ -66,4 +43,8 @@ export class DataStorageService {
     );
   }
 
+
+    // deleteRecipeFromBackEnd(){
+  //   this.http.delete('')
+  // }
 }
