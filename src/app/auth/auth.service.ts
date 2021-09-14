@@ -27,7 +27,7 @@ export class AuthService {
 
 
   signUp(email: string, password: string){
-   return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBO3wGqEgvPifhoET05H04PSdWmaHHYFg4',
+   return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB-U297B7xZ2rdmau8-UdBhOQetbp0nHb4',
     {
       email: email,
       password: password,
@@ -38,9 +38,10 @@ export class AuthService {
     }));
   }
 
-
+ //AIzaSyB-U297B7xZ2rdmau8-UdBhOQetbp0nHb4
   login(email: string, password: string){
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBO3wGqEgvPifhoET05H04PSdWmaHHYFg4',
+    // return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBO3wGqEgvPifhoET05H04PSdWmaHHYFg4',
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB-U297B7xZ2rdmau8-UdBhOQetbp0nHb4',
     {
       email: email,
       password: password,

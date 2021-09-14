@@ -9,7 +9,7 @@ import { Recipe } from "./recipe.model";
 @Injectable({providedIn: 'root'})
 export class RecipeService{
   recipesChanged = new Subject<Recipe[]>();
-  private  recipes: Recipe[]
+  private  recipes: Recipe[]=[];
 
   // recipeSelected = new Subject<Recipe>();
 //  private  recipes: Recipe[] = [
@@ -28,14 +28,18 @@ export class RecipeService{
 
   setRecipes(recipes: Recipe[]){
       this.recipes = recipes;
+      // console.log("This is setREcipes recipes====" + this.recipes);
       this.recipesChanged.next(this.recipes.slice());
+      // console.log("This is slice recipes====" + this.recipes.slice());
   }
 
   getRecipes(){
+    // console.log('this is the recipes from get recipes ==>' + this.recipes)
     return this.recipes.slice();
   }
 
   getRecipe(index:number){
+    // console.log("This is get recipes INDEX ====" + this.recipes[index]);
     return this.recipes[index];
   }
 
@@ -45,6 +49,7 @@ export class RecipeService{
 
   addRecipe(recipe: Recipe){
     this.recipes.push(recipe);
+    // console.log('this is the recipe array ===>' + this.recipes)
     this.recipesChanged.next(this.recipes.slice());
   }
 

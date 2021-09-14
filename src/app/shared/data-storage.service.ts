@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams }from '@angular/common/http';
 import { Recipe } from "../recipes/recipe.model";
 import { RecipeService } from "../recipes/recipe.service";
-import { exhaust, exhaustMap, map, take, tap } from 'rxjs/operators';
+import {  map, tap } from 'rxjs/operators';
 import { AuthService } from "../auth/auth.service";
 
 
@@ -18,7 +18,8 @@ export class DataStorageService {
 
   storeRecipes(){
     const recipes = this.recipeService.getRecipes();
-    this.http.put('https://angular-recipebook-app-cb8e0-default-rtdb.firebaseio.com/recipes.json', recipes)
+    console.log('This is the recipe been sent ===>' + recipes)
+    this.http.put('https://angular-projects-cc0ab-default-rtdb.firebaseio.com/recipes.json', recipes)
     .subscribe(response =>{
       console.log(response);
     })
@@ -26,7 +27,7 @@ export class DataStorageService {
 
   fetchRecipes() {
         return this.http.get<Recipe[]>(
-          'https://angular-recipebook-app-cb8e0-default-rtdb.firebaseio.com/recipes.json',
+          'https://angular-projects-cc0ab-default-rtdb.firebaseio.com/recipes.json',
 
         ).pipe(
       map(recipes => {
@@ -38,13 +39,14 @@ export class DataStorageService {
         });
       }),
       tap(recipes => {
+        console.log("This is fetch recipes====" + recipes);
         this.recipeService.setRecipes(recipes);
       })
     );
   }
 
 
-    deleteRecipeFromBackEnd(index: number){
-    return this.http.delete('https://angular-recipebook-app-cb8e0-default-rtdb.firebaseio.com/recipes.json/'+ index)
+    deleteRecipeFromBackEnd(index: string){
+    return this.http.delete('https://angular-projects-cc0ab-default-rtdb.firebaseio.com/recipes.json/'+ index)
   }
 }

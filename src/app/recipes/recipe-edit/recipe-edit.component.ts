@@ -109,7 +109,7 @@ export class RecipeEditComponent implements OnInit {
         (params: Params) => {
           this.id = +params['id'];
           this.editMode = params['id'] != null;
-          console.log("this is editMode ==>" + this.editMode)
+          // console.log("this is editMode ==>" + this.editMode)
           this.initForm();
         }
       );
@@ -156,6 +156,7 @@ export class RecipeEditComponent implements OnInit {
     let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
+      // console.log('this is the id ===>' + this.id)
       const recipe = this.recipeService.getRecipe(this.id);
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;

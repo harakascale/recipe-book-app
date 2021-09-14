@@ -36,8 +36,10 @@ id: number;
       this.router.navigate(['edit'], {relativeTo: this.route});
   }
   onDeleteRecipe(){
+
+
     this.recipeService.deleteRecipe(this.id);
-    this.dataStorageService.deleteRecipeFromBackEnd(this.id).subscribe();
+    this.dataStorageService.deleteRecipeFromBackEnd(this.id.toString()).subscribe();
     this.router.navigate(['/recipes']);
   }
 
